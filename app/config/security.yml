@@ -1,0 +1,26 @@
+# app/config/security.yml
+security:
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: bcrypt
+
+    # ...
+
+    providers:
+        database:
+            entity:
+                class: AppBundle:User
+                property: username
+                # if you're using multiple entity managers
+                # manager_name: customer
+
+    firewalls:
+        main:
+            pattern:    ^/
+            http_basic: ~
+            provider: database
+            logout:
+                path:   /logout
+                target: /
+    acl:
+        connection: default
